@@ -103,7 +103,7 @@ public class CoolWeatherDB {
 
 
     //save County data into County database
-    public void saveCity(County county){
+    public void saveCounty(County county){
         if(county != null){
             ContentValues values = new ContentValues();
             values.put("county_name", county.countyName);
