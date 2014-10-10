@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="choose_area_title">title_text</item>
+    <item type="id" name="choose_area_list_view">list_view</item>
+</resources>
