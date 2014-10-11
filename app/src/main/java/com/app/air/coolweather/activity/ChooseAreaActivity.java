@@ -36,7 +36,7 @@ public class ChooseAreaActivity extends Activity {
     private ListView listView;
     private ArrayAdapter<String> adapter;
     private CoolWeatherDB coolWeatherDB;
-    private List<String> dataList = new ArrayList<String>();
+    private List<String> dataList = new ArrayList<>();
 
     private List<Province> provinceList;
     private List<City> cityList;
@@ -53,14 +53,14 @@ public class ChooseAreaActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_choose_area);
-
+        findViews();
 
     }
 
     private void findViews(){
         titleText = (TextView) findViewById(R.id.choose_area_title);
         listView = (ListView) findViewById(R.id.choose_area_list_view);
-        adapter = new ArrayAdapter<String>(this,
+        adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, dataList);
         listView.setAdapter(adapter);
         coolWeatherDB = CoolWeatherDB.getInstance(this);
@@ -153,15 +153,19 @@ public class ChooseAreaActivity extends Activity {
             @Override
             public void onFinish(String response) {
                 boolean result = false;
-                if("province".equals(type)){
-                    result = Utility.handleProvincesResponse(coolWeatherDB,
-                            response);
-                }else if("city".equals(type)){
-                    result = Utility.handleCitiesResponse(coolWeatherDB,
-                            response, selectedProvince.id);
-                }else if("county".equals(type)){
-                    result = Utility.handleCountiesResponse(coolWeatherDB,
-                            response, selectedCity.id);
+                switch(type) {
+                    case "province":
+                        result = Utility.handleProvincesResponse(coolWeatherDB,
+                                response);
+                        break;
+                    case "city":
+                        result = Utility.handleCitiesResponse(coolWeatherDB,
+                                response, selectedProvince.id);
+                        break;
+                    case "county":
+                        result = Utility.handleCountiesResponse(coolWeatherDB,
+                                response, selectedCity.id);
+                        break;
                 }
 
                 if(result){
@@ -171,12 +175,17 @@ public class ChooseAreaActivity extends Activity {
                         @Override
                         public void run() {
                             closeProgressDialog();
-                            if("province".equals(type))
-                                queryProvinces();
-                            else if("city".equals(type))
-                                queryCities();
-                            else if("county".equals(type))
-                                queryCounties();
+                            switch(type) {
+                                case "province":
+                                    queryProvinces();
+                                    break;
+                                case "city":
+                                    queryCities();
+                                    break;
+                                case "county":
+                                    queryCounties();
+                                    break;
+                            }
                         }
 
 
@@ -211,7 +220,7 @@ public class ChooseAreaActivity extends Activity {
         }
         progressDialog.show();
     }
-    
+
     @Override
     public void onBackPressed() {
         if(currentLevel == LEVEL_COUNTY){
@@ -236,9 +245,6 @@ public class ChooseAreaActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 }
