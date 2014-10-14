@@ -1,5 +1,7 @@
 package com.app.air.coolweather.util;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,6 +14,7 @@ import java.net.URL;
  * Created by air on 14-10-10.
  */
 public class HttpUtil {
+    public static final String TAG = Utility.class.getSimpleName();
     public static void sendHttpRequest(final String address,
                                        final HttpCallbackListener listener){
         new Thread(new Runnable() {

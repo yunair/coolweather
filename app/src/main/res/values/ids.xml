@@ -2,4 +2,5 @@
 <resources>
     <item type="id" name="choose_area_title">title_text</item>
     <item type="id" name="choose_area_list_view">list_view</item>
+    <item type="id" name="weather_city_name">weather_city_name</item>
 </resources>
