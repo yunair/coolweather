@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.app.air.coolweather.R;
+import com.app.air.coolweather.service.AutoUpdateService;
 import com.app.air.coolweather.util.HttpCallbackListener;
 import com.app.air.coolweather.util.HttpUtil;
 import com.app.air.coolweather.util.Utility;
@@ -95,6 +96,9 @@ public class WeatherActivity extends Activity implements View.OnClickListener{
         currentDate.setText(prefs.getString("current_date", ""));
         weatherInfoLayout.setVisibility(View.VISIBLE);
         weatherCityName.setVisibility(View.VISIBLE);
+
+        Intent intent = new Intent(this, AutoUpdateService.class);
+        startService(intent);
     }
 
     //查询县级代号所对应的天气
